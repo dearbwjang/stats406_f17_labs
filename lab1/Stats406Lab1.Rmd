@@ -14,7 +14,7 @@ output: html_document
 
 Face to face conversation is prefered to email conversations.
 
-The lab is outlined from [TutorialsPoint.com]'s R tutorial: <http://www.tutorialspoint.com/r/>
+The lab is outlined from **TutorialsPoint.com**'s R tutorial: <http://www.tutorialspoint.com/r/>
 	and **Fall2017** lab: <http://www-personal.umich.edu/~gaozheng/teaching/stats406/index.html>
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
