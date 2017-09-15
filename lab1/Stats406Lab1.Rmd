@@ -389,3 +389,8 @@ x
 ```
 
 = always creates a binding in the current environment; <= rebinds an existing name in a parent of the current environment.
+
+## Exercise
+#### 1: Create a dataframe or list that contains a Gaussian vector length of 1000 and a binomial vector length of 500
+
+#### 2: In the Iris dataset, subset the data to get versicolor iris that have petal length greater than 1.5
