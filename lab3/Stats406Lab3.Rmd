@@ -1,0 +1,386 @@
+---
+title: "Lab 3"
+date: "September 29, 2017"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. This lab combines Lab 3 and 4 from last year, written by Gao Zheng, see <http://www-personal.umich.edu/~gaozheng/teaching/stats406/>
+
+
+```{r, echo=FALSE}
+setwd("C:/Users/Byoungwook Jang/Google Drive/teaching/stats406_f17_labs/lab3/data")
+```
+
+#More on plotting
+
+There are many ways you can make your plots for 
+
+This example contains a few frequently used plotting parameters:
+
+- Line/Point styles: `type`, `lty`, `pch`, `col`, ...
+
+    - `type`: consult `?plot`, it refers to the type of the line. `b' for showing both the points and the line, `o' for both but over-positioning each other, `l' for line-only and `p' for points-only.
+
+    - `lty`: line type, take integer values.
+
+    - `pch`: the point marker used, take integer or character values.
+    
+    - `col`: color, take integer or character values.
+
+- Plot range: `xlim`, `ylim`. Here we expanded the plot ranges to have more comfortable margins.
+
+- Texts: `main`, `sub`, `xlab`, `ylab`, ...
+
+    - `main`: main title of the plot.
+
+    - `sub`: subtitle.
+
+    - `xlim`, `ylim`: ranges of axes.
+
+- Font sizes: `cex` (default), `cex.main`, `cex.sub`, `cex.lab`, `cex.axis`, ... 
+
+- Axes: `axes` ...
+
+- Margin: `par(mar = )` ...
+
+- Layout: `layout`, `par(mfrow = )` ...
+
+
+Let us improve the plot from lecture. 
+
+```{r,fig.width=8,fig.height=4}
+simulated.X = rnorm(n=10000)
+dens = density(simulated.X)
+plot(dens, col = 'blue', lty = 2, xlim=c(-4,4), ylim=c(0,0.4))
+par(new=T)
+curve(dnorm,lty=1, col='red',xlim=c(-4,4),ylim=c(0,0.4))
+legend(x='topleft',legend=c('Estimated density','True density'),
+       col=c('blue','red'),lty=c(2,1))
+```
+
+Notice the overlapping axes and axes labels, we want to get rid of them.
+
+A slightly improved plot looks like this:
+
+```{r,fig.width=8,fig.height=4}
+plot(
+  dens, col = 'blue', lty = 2, xlim = c(-4,4), ylim = c(0,0.4),
+  main = "A comparison of true and estimated normal density"
+)
+par(new = T)
+curve(
+  dnorm,lty = 1, col = 'red',xlim = c(-4,4), ylim = c(0,0.4),
+  axes = FALSE, xlab = "", ylab = ""
+)
+legend(
+  x = 'topleft',legend = c('Estimated density','True density'),
+  col = c('blue','red'), lty = c(2,1)
+)
+```
+
+It is possible to come up with pretty plots using only base packages. Plotting needs a little practice (and some Googling).
+
+#Data wrangling
+
+In real life (in work), most of our time is spent wrangling with datasets; figuring out how things are recorded, dealing with missing data, extract the useful bits of information from a menagerie of variables.
+Much less time is spent on actual discovery and trying to draw insights from the datasets. Unfortunate, but most of the time it is the case.
+
+Datasets in classes are mostly curated, clearly annotated. The real world is a lot messier.
+
+The following is an example of real world dataset, still quite well-behaved, but it is closer to what datasets look like out there.
+
+The dataset is adapted from:
+
+[Allison, T. and Chichetti, D. (1976) Sleep in mammals: ecological and constitutional correlates. Science 194 (4266), 732–734.](http://science.sciencemag.org/content/194/4266/732)
+
+- The dataset consists of animal sleep data with 62 observations on 10 variables.
+
+- Some of the variables are missing.
+
+- The dataset is splitted into two (deliberately): 
+First contains the observation ID plus the first 6 variables. Second contains the observation ID plus the last 4 variables.
+
+We are going to read the datasets, combine them according to their ID, calculate some simple statistics, and visulaize the results.
+
+## Read the dataset into R
+
+Download the datasets [sleep1.csv](./data/sleep1.csv), [sleep2.csv](./data/sleep2.csv) here by following the links or download from Canvas.
+
+Inspect the datasets. Read both files into R.
+
+You should be getting the following header names and data types
+
+```{r, echo=FALSE}
+sleepdata1 <- read.csv("sleep1.csv",header = T,na.strings = "NULL")
+sleepdata2 <- read.csv("sleep2.csv",header = T,na.strings = "NULL")
+
+sapply(sleepdata1,class)
+sapply(sleepdata2,class)
+```
+
+## Combine the datasets according to observation ID
+
+You shoud be merging the two datasets where their ID's match.
+
+The combined headers and data types should look like this:
+
+```{r, echo=FALSE}
+sleepdata <- merge(sleepdata1,sleepdata2)
+sapply(sleepdata, class)
+```
+
+*Hint*: Does `cbind` work? Why? What about `merge`?
+
+## Calculate the proportion of dream time in sleep
+
+Notice there is a numeric column "Dream" and a numerical column "Sleep". We want to calculate the ratio of the two, where neither of them are `NA`'s.
+
+Then append the new column to the dataframe. Call the new Column "Ratio". The first 10 rows should look like this:
+
+```{r, echo=FALSE}
+sleepdata <- cbind(sleepdata,"Ratio" = with(sleepdata,Dream/Sleep))
+head(sleepdata[2:12],10)
+```
+
+## Boxplot of a variable against another
+
+Now we want to viualize the relationship between the variables "Ratio" and "Danger" using a boxplot.
+
+Try replicate this:
+
+```{r, echo=FALSE}
+with(sleepdata,boxplot(Ratio~Danger,xlab='Danger',ylab = 'Ratio',main='Ratio by Danger Category'))
+```
+
+*Tip*: The function `with` can shorten the code significantly for expressions involving dataframes.
+
+`with` creates an environment from the data, so that when you refer to the variables in the dataset, you no longer have refer to the dataset by name.
+
+For example instead of writing 
+
+```{r}
+# plot(really_long_dataframe_name$really_long_variable_name_1,
+#       really_long_dataframe_name$really_long_variable_name2)
+```
+you can write
+```{r}
+# with(really_long_dataframe_name, 
+#     plot(really_long_variable_name_1,really_long_variable_name2))
+```
+
+See more on `?with`.
+
+
+## Order the dataset by a variable
+
+What if we want to reorder the dataframe accoring to the variable "Ratio", in increasing order?
+
+```{r,echo=FALSE}
+sleepdata <- sleepdata[order(sleepdata$Ratio),]
+head(sleepdata[,2:12],10)
+```
+
+Hint: Does `sort` work? What about `order`?
+
+## Extras
+
+## Q&A
+
+What's the difference between `|` (OR) and `||` (OR)?
+
+A: `|` (OR) is bitwise operation. `||` (OR) is not.
+
+```{r}
+A <- c(F,T,F,T,F,T,T,F,T)
+B <- c(F,F,T,F,T,F,F,T,F)
+A|B
+A||B
+```
+
+Similarly for `&` (AND) and `&&` (AND).
+
+
+
+
+```{r,echo=FALSE}
+setwd("C:/Users/Byoungwook Jang/Google Drive/teaching/stats406_f17_labs/lab3")
+```
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+# Introduction to relational databases
+- The advantage of using relational databases:
+
+    - Data can be maintained and queried by different threads independently.
+
+    - More efficient queries for objectives that only concerns one subtable.
+
+- Relational database files and their management systems:
+
+    - A .db file is to relational database management systems (SQLite, MySQL, Oracle, etc) as a .pdf file is to PDF readers (Adobe, Foxit, Okular, etc).
+    
+    - There is one file format (.db) and many tools (management systems) you can use to manage the file.
+    
+    - Different management systems have very similar syntaxes on basic operations and return queried data in very similar forms. They differ in efficiency and other aspects, but not much grammatically.
+    
+    - In fact, the commands and even most code lines you learned in this class will run without modification under most management systems.
+
+# Using SQLite in R
+
+- We can work with databases within R by installing related packages.
+
+- Install package RSQLite and connect to a database.
+
+Before you proceed, make sure that you have downloaded [baseball.db](./data/baseball.db), and have navigated to the corrected directory that contains the database!
+
+Solutions to the quizes can be found in this [R-script](./data/Lab4.R).
+
+```{r}
+## Load the RSQLite package (install it first if you haven't yet)
+# install.packages("RSQLite", dep=TRUE)
+library("RSQLite")
+## Make sure the file is under the working directory and then connect to it
+driver = dbDriver("SQLite")
+conn = dbConnect(driver, "baseball.db")
+## Check the tables in a database
+dbListTables(conn)
+## Check the variables in a table
+dbListFields(conn, "Teams")
+```
+
+# SQL commands
+
+- SQL keywords are not case sensitive, but when calling SQL in R, capitalizing key words helps to improve readability.
+- SQL is designed mainly for extracting data from databases, NOT for analyzing them. SQL provides basic summarizing commands and tools, but do not expect too much. We can use R for further analysis.
+
+### Basic SQL commands
+
+The very basic form of SQL queries is:
+
+```
+## Pseudo-code 
+## Required clauses 
+SELECT ColumnNames
+FROM TableName
+## Optional clauses 
+WHERE Conditions
+GROUP BY VariableNames HAVING Conditions
+ORDER BY VariableNames
+```
+
+In **SELECT**:
+
+- **AS** renames the extracted variables for convenience. It is especially useful when a. they are summarized; or b. (will see later) when they have to come with prefixes like table names.
+- **AS** can often be omitted. Thus the variable name should NOT contain space (Why?).
+- Aggregate functions. For a list, check, for example, [http://www.techonthenet.com/sql_server/functions/index_alpha.php](http://www.techonthenet.com/sql_server/functions/index_alpha.php).
+
+```
+## Pseudo-code: SQLite 
+SELECT Var1, MIN(Var2) AS MinVar2, AVG(Var3) AS AvgVar3
+FROM TableName
+```
+
+In **FROM**:
+
+- In this course, unless when combining tables, we only select from one table.
+
+In **WHERE**:
+
+- If there are multiple conditions, they should be connected by logical connectives (**AND**, **OR** and parenthesis when needed). Conditions can also be decorated by other logical operators (**NOT**, etc). For a list of logical operators in SQL, see [http://www.w3resource.com/sql/boolean-operator/sql-boolean-operators.php](http://www.w3resource.com/sql/boolean-operator/sql-boolean-operators.php).
+
+```
+## Pseudo-code: SQLite 
+## Example from: http://beginner-sql-tutorial.com/sql-logical-operators.htm 
+SELECT first_name, last_name, age, games 
+FROM student_details 
+WHERE age >= 10 AND age <= 15 OR NOT games = 'Football'
+```
+
+
+**Quiz 1:** Extract data from table *Master*. Generate a table with all variables in Master for players born in 1980s and sort by their names.
+
+```
+# Solution: see Lab4.R
+```
+
+For **GROUP BY**
+
+- **GROUP BY** is used in combination with aggregate functions in **SELECT**.
+
+- (From Wikipedia) **HAVING** modifies **GROUP BY**. It is indispensable because **WHERE** does not allow aggregate functions.
+
+```
+## Pseudo-code: SQLite 
+## Example from: https://en.wikipedia.org/wiki/Having_(SQL) 
+SELECT DeptID, SUM(SaleAmount)
+FROM Sales
+WHERE SaleDate = '01-Jan-2000'
+GROUP BY DeptID
+HAVING SUM(SaleAmount) > 1000
+```
+
+**Quiz 2:** Query data from table *Teams*. Generate a table showing the number of teams that won more than half of the games each year since 1950. Sort by year.
+
+```
+# Solution: see Lab4.R
+```
+
+## Inner joining tables
+
+Basic form (not quite "basic", careful):
+
+```
+## Pseudo-code 
+SELECT T1.ColumnNames, T2.ColumnNames
+FROM T1 INNER JOIN T2 ON JoiningConditions
+## Other clauses 
+WHERE Conditions
+## etc 
+```
+
+- What are the different roles of Table "T1" and Table "T2"?
+
+- **ON**: Specify which rows to combine from the two tables
+
+- In **SELECT** here: specify table names as prefixes for variable names when needed.
+
+**Example:**
+```
+SELECT Schools.schoolID, schoolName, schoolCity, schoolState, playerID 
+FROM Schools INNER JOIN SchoolsPlayers ON Schools.schoolID = SchoolsPlayers.schoolID 
+WHERE schoolState = 'MI'
+```
+
+
+- If we omit "Schools" in the first "Schools.schoolID", there will be an error.
+- In general, DO NOT omit table names if causing ambiguity.
+
+**Quiz 3:** Join table *Schools* with table *SchoolsPlayers*. Generate a table showing the number of players from each school in Michigan. Sort by the number of players in decreasing order.
+
+```
+# Solution: see Lab4.R
+```
+
+# Extras
+
+##### - See this stackoverflow post on [when to use r when to use sql](http://stackoverflow.com/questions/9795051/when-to-use-r-when-to-use-sql).
+
+##### - See this Quora post on [how do we deal with very large datasets that do not fit into RAM](https://www.quora.com/How-do-we-deal-with-very-large-datasets-that-do-not-fit-into-RAM).
+
+<div style="width:500px">
+![](https://qph.ec.quoracdn.net/main-qimg-cace0d2b396389ca7f7b183359e0dd86-c?convert_to_webp=true)
+</div>
+
+# Q&A
+
+#### What's the difference between `WHERE` and `HAVING`?
+
+See this post here ([http://stackoverflow.com/questions/287474/whats-the-difference-between-having-and-where](http://stackoverflow.com/questions/287474/whats-the-difference-between-having-and-where)).
+
+`HAVING` is used to check conditions after the aggregation takes place.
+
+`WHERE` is used before the aggregation takes place.
+
+In the case of quiz 2 above, it makes no difference (restriction on `yearID` can take place before or after `GROUP BY`). But in the cases where you want you restrict the output by the grouped results, you should stick to `HAVING`.
+
+.
