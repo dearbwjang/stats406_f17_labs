@@ -106,7 +106,7 @@ We are going to read the datasets, combine them according to their ID, calculate
 
 ## Read the dataset into R
 
-Download the datasets [sleep1.csv](./data/sleep1.csv), [sleep2.csv](./data/sleep2.csv) here by following the links or download from Canvas.
+Download the datasets [sleep1.csv](./data/sleep1.csv), [sleep2.csv](./data/sleep2.csv) here by following the links or download from Github.
 
 Inspect the datasets. Read both files into R.
 
