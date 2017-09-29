@@ -1,5 +1,4 @@
 ## lab 4
-setwd("/home/gaozheng/Teaching/Stats406/R_scripts/lab4/")
 library("RSQLite")
 
 

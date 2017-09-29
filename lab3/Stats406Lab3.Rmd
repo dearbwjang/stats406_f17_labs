@@ -8,7 +8,7 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 
 ```{r, echo=FALSE}
-setwd("C:/Users/Byoungwook Jang/Google Drive/teaching/stats406_f17_labs/lab3/data")
+setwd("C:/Users/Wookie/Google Drive/teaching/stats406_f17_labs/lab3/data")
 ```
 
 #More on plotting
@@ -78,12 +78,14 @@ legend(
 )
 ```
 
-It is possible to come up with pretty plots using only base packages. Plotting needs a little practice (and some Googling).
+It is possible to come up with pretty plots using only base packages. Plotting needs a little practice (and a lot of Googling).
 
 #Data wrangling
 
 In real life (in work), most of our time is spent wrangling with datasets; figuring out how things are recorded, dealing with missing data, extract the useful bits of information from a menagerie of variables.
 Much less time is spent on actual discovery and trying to draw insights from the datasets. Unfortunate, but most of the time it is the case.
+
+"Most data scientists spend only 20 percent of their time on actual data analysis and 80 percent of their time finding, cleaning, and reorganizing huge amounts of data, which is an inefficient data strategy"
 
 Datasets in classes are mostly curated, clearly annotated. The real world is a lot messier.
 
@@ -203,7 +205,7 @@ Similarly for `&` (AND) and `&&` (AND).
 
 
 ```{r,echo=FALSE}
-setwd("C:/Users/Byoungwook Jang/Google Drive/teaching/stats406_f17_labs/lab3")
+setwd("C:/Users/Wookie/Google Drive/teaching/stats406_f17_labs/lab3")
 ```
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
