@@ -1,9 +1,10 @@
 ---
 title: "Lab 3"
+author: "Byoungwook Jang"
 date: "September 29, 2017"
 output: html_document
----
 
+---
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>. This lab combines Lab 3 and 4 from last year, written by Gao Zheng, see <http://www-personal.umich.edu/~gaozheng/teaching/stats406/>
 
 
@@ -302,7 +303,7 @@ WHERE age >= 10 AND age <= 15 OR NOT games = 'Football'
 **Quiz 1:** Extract data from table *Master*. Generate a table with all variables in Master for players born in 1980s and sort by their names.
 
 ```
-# Solution: see Lab4.R
+# Solution: see laqsql.R
 ```
 
 For **GROUP BY**
@@ -328,6 +329,8 @@ HAVING SUM(SaleAmount) > 1000
 ```
 
 ## Inner joining tables
+
+Look at the nice visualization from <https://www.w3schools.com/sql/sql_join_inner.asp>.
 
 Basic form (not quite "basic", careful):
 
@@ -360,7 +363,7 @@ WHERE schoolState = 'MI'
 **Quiz 3:** Join table *Schools* with table *SchoolsPlayers*. Generate a table showing the number of players from each school in Michigan. Sort by the number of players in decreasing order.
 
 ```
-# Solution: see Lab4.R
+# Solution: see Labsql.R
 ```
 
 # Extras
