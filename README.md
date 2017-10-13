@@ -5,3 +5,4 @@ STATS 406 Fall 2017 lab materials, University of Michigan
 * Lab 2 (09-22-2017): [Lab](https://rawgit.com/byoungwookjang/stats406_f17_labs/master/lab2/Stats406Lab2.html)
 * Lab 3 (09-29-2017): [Lab](https://rawgit.com/byoungwookjang/stats406_f17_labs/master/lab3/Stats406Lab3.html)
 * Lab 4 (10-6-2017): [Lab](https://rawgit.com/byoungwookjang/stats406_f17_labs/master/lab4/Stats406Lab4.html)
+* Lab 5 (10-13-2017): [Lab](https://rawgit.com/byoungwookjang/stats406_f17_labs/master/lab5/Stats406Lab5_pdf.html)
