@@ -1,14 +1,19 @@
 ---
 title: "Lab5"
-author: ""
+author: "Zheng Gao"
 date: "October 11, 2016"
-output: pdf_document
+output: html_document
 ---
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-```{r,echo=FALSE}
-setwd("~/Teaching/Stats406/R_scripts/lab5/")
+```{r,echo=TRUE}
+sqltext = "SELECT strftime('%Y', debut) AS debutYear,
+			CAST(COUNT(CASE WHEN bats = 'R' then 1 ELSE NULL END) AS FLOAT)
+			/CAST(COUNT(CASE WHEN bats = 'L' then 1 ELSE NULL END) AS FLOAT) as ratio
+			FROM Master
+			GROUP BY strftime('%Y', debut)"
+
 ```
 
 # Some background
