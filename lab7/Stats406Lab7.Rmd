@@ -92,7 +92,7 @@ Power of regex comes from the meta-characters. The commonly uesd meta-chatacters
 
 ### An example with R function calls
 
-This was in the news yesterday ([Barcelona stars snub La Liga awards as Atletico claim FIVE of the big prizes at glamorous ceremony, *Mirror*, 25 Oct 2016](http://www.mirror.co.uk/sport/football/news/barcelona-stars-snub-la-liga-9119612)):
+This was in the news last year ([Barcelona stars snub La Liga awards as Atletico claim FIVE of the big prizes at glamorous ceremony, *Mirror*, 25 Oct 2017](http://www.mirror.co.uk/sport/football/news/barcelona-stars-snub-la-liga-9119612)):
 
 ```{r}
 txt <- paste("FC Barcelona's stars swerved La Liga's glamorous awards ceremony",
