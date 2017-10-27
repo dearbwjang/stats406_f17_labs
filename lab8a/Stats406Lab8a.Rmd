@@ -1,19 +1,15 @@
 ---
 title: "Lab 8a"
-author: "GAO Zheng"
-date: "November 2, 2016"
+author: "GAO Zheng from last year"
+date: "October 27, 2017"
 output:
-  html_notebook: default
   html_document: default
+  html_notebook: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
-
-## News Flash: Rstudio got updated
-
-Check it out [here](https://blog.rstudio.org/2016/11/01/announcing-rstudio-v1-0/).
 
 This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
 
