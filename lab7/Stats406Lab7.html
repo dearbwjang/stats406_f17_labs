@@ -322,6 +322,7 @@ substr(rep(last.sentence,length(start)),start,end)</code></pre>
           &quot;regex&quot;,
           &quot;regexp&quot;,
           &quot;regexes&quot;)</code></pre>
+<pre class="r"><code>pattern &lt;- &quot;^reg(ular expressions?|ex(p|es)?)$&quot;</code></pre>
 <pre class="r"><code>regexpr(pattern, text)</code></pre>
 <pre><code>## [1] 1 1 1 1 1
 ## attr(,&quot;match.length&quot;)
@@ -453,6 +454,8 @@ substr(rep(last.sentence,length(start)),start,end)</code></pre>
 </tr>
 </tbody>
 </table>
+<pre class="r"><code>pattern &lt;-
+  &quot;^[A-Z0-9_][A-Z0-9._%+-]*@((([A-Z0-9][A-Z0-9-]*\\.)+[A-Z]{2,})|(([0-9]{1,3}\\.){3}[0-9]{1,3}))$&quot;</code></pre>
 <p>The list of examples are typed here for convenience, copy &amp; paste into R:</p>
 <pre class="r"><code>valid.emails &lt;- c(
   &quot;email@domain.com&quot;,
